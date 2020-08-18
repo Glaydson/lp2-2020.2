@@ -8,16 +8,8 @@ import java.util.stream.Collectors;
 public class Concat {
 
     public static ArrayList<Integer> concatNumerosPositivos(ArrayList<Integer> l1, ArrayList<Integer> l2) {
-        ArrayList<Integer> result = new ArrayList<>();
-        for (Integer x : l1) {
-            if (x > 0)
-                result.add(x);
-        }
-        for (Integer x : l2) {
-            if (x > 0)
-                result.add(x);
-        }
-        return result;
+       // Escreva seu código aqui
+       return null;
     }
 
     /* Não modifique este método */
