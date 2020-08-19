@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 public class InteiroMaisProximo {
     public static void main(String[] args) {
         // Escreva seu código aqui
+        Scanner scanner = new Scanner(System.in);
+        // Ler o array de números
+        ArrayList<Integer> array = readArrayList(scanner);
+        // Ler o número N
+        int n = scanner.nextInt();
        
     }
 
