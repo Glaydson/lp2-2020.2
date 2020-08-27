@@ -1,11 +1,16 @@
 package unidade1.streams;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class CollectionExamples {
@@ -138,19 +143,152 @@ public class CollectionExamples {
          * que armazena esse tipo de objetos. Um MAP é uma coleção de pares chave-valor.
          * Chaves são sempre únicas, e os valores podem se repetir.
          * 
-         * A maneira mais simples de criar um map é invocar o método OF da interface MAP.
-         * O método recebe nenhum ou qualquer número par de argumentos no formato chave1,
-         * valor1, chave2, valor2, .... e retorna um map imutável
+         * A maneira mais simples de criar um map é invocar o método OF da interface
+         * MAP. O método recebe nenhum ou qualquer número par de argumentos no formato
+         * chave1, valor1, chave2, valor2, .... e retorna um map imutável
          */
 
         Map<String, String> emptyMap = Map.of();
-        
-        Map<String, String> friendPhones = Map.of(
-                "Bob", "+1-202-555-0118",
-                "James", "+1-202-555-0220",
-                "Katy", "+1-202-555-0175"
-        );
-        
+
+        Map<String, String> friendPhones = Map.of("Bob", "+1-202-555-0118", "James", "+1-202-555-0220", "Katy",
+                "+1-202-555-0175");
+
+        /*
+         * Agora vamos considerar algumas operações que podem ser aplicadas a maps
+         * imutáveis usando o exemplo acima. O tamanho de um map é igual ao número de
+         * pares que ele contém
+         */
+        System.out.println(emptyMap.size()); // 0
+        System.out.println(friendPhones.size()); // 3
+
+        /*
+         * É possível obter um valor de um map a partir de sua chave O método
+         * getOrDefault fornece uma maneira simples de prevenir exceções NullPointer,
+         * uma vez que ele evita nulos.
+         */
+        String bobPhone = friendPhones.get("Bob"); // +1-202-555-0118
+        String alicePhone = friendPhones.get("Alice"); // null
+        String phone = friendPhones.getOrDefault("Alex", "Fone desconhecido"); // Fone desconhecido
+
+        /*
+         * Podemos acessar diretamente o conjunto de chaves e a coleção de valores de um
+         * map
+         */
+        System.out.println(friendPhones.keySet()); // [James, Bob, Katy]
+        System.out.println(friendPhones.values()); // [+1-202-555-0220, +1-202-555-0118, +1-202-555-0175]
+
+        /****************** HASH MAP ****************/
+        /*
+         * A classe HashMap representa um map suportado por uma tabela hash. A função
+         * hash dispersa os elementos apropriadamente dentro do map. O exemplo a seguir
+         * demonstra um map de produtos onde a chave é o código do produto e o valor é o
+         * nome
+         */
+        Map<Integer, String> products = new HashMap<>();
+
+        products.put(1000, "Notebook");
+        products.put(2000, "Phone");
+        products.put(3000, "Keyboard");
+
+        System.out.println(products); // {2000=Phone, 1000=Notebook, 3000=Keyboard}
+
+        System.out.println(products.get(1000)); // Notebook
+
+        products.remove(1000);
+
+        System.out.println(products.get(1000)); // null
+
+        products.putIfAbsent(3000, "Mouse"); // não altera o elemento atual
+
+        System.out.println(products.get(3000)); // Keyboard
+
+        /****************** LINKED HASH MAP ****************/
+        /*
+         * A classe LinkedHashMap armazena a ordem na qual os elementos foram inseridos.
+         * Vamos ver uma parte do exemplo anterior novamente.
+         */
+        Map<Integer, String> products2 = new LinkedHashMap<>(); // map ordenado de produtos
+
+        products2.put(1000, "Notebook");
+        products2.put(2000, "Phone");
+        products2.put(3000, "Keyboard");
+
+        System.out.println(products2); // sempre ordenado {1000=Notebook, 2000=Phone, 3000=Keyboard}
+
+        /****************** TREE MAP ****************/
+        /*
+         * A classe TreeMap representa um map onde é garantida a ordem dos elementos
+         * Essa ordem corresponde à ordem das chaves, determinada por sua ordem natural
+         * (se ela implementa a interface Comparable) ou por uma implementação
+         * específica de Comparator. Esta classe implementa a interface SortedMap, que
+         * estende a interface básica Map. ela fornece alguns novos métodos,
+         * relacionados à comparação das chaves.
+         */
+
+        /*
+         * O exemplo abaixo demonstra como criar e usar um objeto TreeMap. Este map é
+         * preenchido com eventos, cada um dos quais tem uma data (key) e um titulo
+         * (valor). LocalDate é uma classe que representa uma data. A invocação de
+         * LocalDate.of(ano, mes, dia) cria um objeto que representa uma data com o ano,
+         * mês e dia passados.
+         */
+
+        SortedMap<LocalDate, String> events = new TreeMap<>();
+
+        events.put(LocalDate.of(2017, 6, 6), "The Java Conference");
+        events.put(LocalDate.of(2017, 6, 7), "Another Java Conference");
+        events.put(LocalDate.of(2017, 6, 8), "Discussion: career or education?");
+        events.put(LocalDate.of(2017, 6, 9), "The modern art");
+        events.put(LocalDate.of(2017, 6, 10), "Coffee master class");
+
+        LocalDate fromInclusive = LocalDate.of(2017, 6, 8);
+        LocalDate toExclusive = LocalDate.of(2017, 6, 10);
+
+        /*
+         * Este código imprime o submap resultante: {2017-06-08=Discussion: career or
+         * education?, 2017-06-09=The modern art}
+         */
+        System.out.println(events.subMap(fromInclusive, toExclusive));
+
+        /*
+         * Use TreeMap somente quando você realmente precisa ordenar os elementos, pois
+         * esta implementação é menos eficiente que HashMap.
+         */
+
+        /****************** ITERANDO POR UM MAP ****************/
+        /*
+         * O código a seguir mostra como obter chaves e valores em um loop FOR-EACH
+         */
+
+        Map<String, String> friendPhones2 = Map.of("Bob", "+1-202-555-0118", "James", "+1-202-555-0220", "Katy",
+                "+1-202-555-0175");
+
+        // imprimindo os nomes
+        for (String name : friendPhones2.keySet()) {
+            System.out.println(name);
+        }
+
+        // imprimindo os fones
+        for (String ph : friendPhones2.values()) {
+            System.out.println(ph);
+        }
+
+        /*
+         * Se você quer imprimir uma chave e seu valor associado em uma mesma iteração,
+         * você pode obter entrySet() e iterar por ela. Este código imprime todos os
+         * pares como esperado. Bob: +1-202-555-0118 James: +1-202-555-0220 Katy:
+         * +1-202-555-0175
+         */
+
+        for (var entry : friendPhones2.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        /*
+         * O mesmo comportamento pode ser obtido usando uma expressão lambda com dois
+         * argumentos:
+         */
+        friendPhones2.forEach((nome, fone) -> System.out.println(nome + ": " + fone));
 
     }
 
