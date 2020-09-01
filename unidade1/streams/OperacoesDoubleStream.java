@@ -35,6 +35,11 @@ public class OperacoesDoubleStream {
             .sorted()
             .forEach(n -> System.out.printf("%.2f ", n));
 
+        // O professor deu meio ponto para todos os alunos
+		// Assim, todas as notas foram elevadas em meio ponto, desde que a nota máxima
+		// se mantenha em 10
+		// Calcule a nova média da turma e quantos alunos ficariam reprovados agora
+
     }
 
 }

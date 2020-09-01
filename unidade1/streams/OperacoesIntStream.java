@@ -30,7 +30,10 @@ public class OperacoesIntStream {
         System.out.printf("%nSoma usando método reduce(): %d%n", IntStream.of(valores).reduce(0, (x, y) -> x + y));
         System.out.printf("%nSoma dos quadrados usando método reduce(): %d%n",
                 IntStream.of(valores).reduce(0, (x, y) -> x + y * y));
-        System.out.printf("%nProduto usando método reduce(): %d%n", IntStream.of(valores).reduce(1, (x, y) -> x * y));
+        System.out.printf("%nProduto dos valores usando método reduce(): %d%n", 
+                IntStream.of(valores).reduce(1, (x, y) -> x * y));
+
+            
 
         // valores pares exibidos em ordem
         System.out.printf("%nValores pares exibidos em ordem: ");
