@@ -2,6 +2,7 @@ package br.edu.unichristus.livrariaapi20202;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,6 +41,18 @@ public class LivrariaApi20202Application implements CommandLineRunner {
 		// Buscando um livro pelo seu ID
 		Livro livro1 = this.servicoLivros.buscarPeloID(1L);
 		System.out.println(livro1);
+
+		// Buscar um livro pelo seu título
+		List<Livro> livrosJava = this.servicoLivros.buscarPeloTitulo("Java");
+		livrosJava.forEach(System.out::println);
+
+		// Buscar os livros com uma quantidade de páginas dada
+		List<Livro> livros300paginas = this.servicoLivros.buscarPeloNumeroPaginas(300);
+		livros300paginas.forEach(System.out::println);
+
+		// Buscar os livros publicados até uma determinada data
+		List<Livro> livrosAntes2010 = this.servicoLivros.buscarLivrosPublicadosAntesDeUmaData(LocalDate.of(2010, 12, 31));
+		livrosAntes2010.forEach(System.out::println);
 
 	}
 
