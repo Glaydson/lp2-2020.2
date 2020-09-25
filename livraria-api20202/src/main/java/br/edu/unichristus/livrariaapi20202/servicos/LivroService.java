@@ -48,6 +48,10 @@ public class LivroService {
         this.repoLivros.delete(livroBD);
         System.out.println("Livro " + livroBD.getTitulo() + " removido");
     }
+    
+    public void removerTodos() {
+        this.repoLivros.deleteAll();
+    }
 
     public Livro buscarPeloTitulo(String titulo) {
         return this.repoLivros.findByTitulo(titulo);

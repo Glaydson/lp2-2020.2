@@ -15,7 +15,7 @@ import br.edu.unichristus.livrariaapi20202.entidades.Livro;
 import br.edu.unichristus.livrariaapi20202.servicos.EditoraService;
 import br.edu.unichristus.livrariaapi20202.servicos.LivroService;
 
-@SpringBootApplication
+// @SpringBootApplication
 public class LivrariaApi20202Application implements CommandLineRunner {
 
 	@Autowired
@@ -30,6 +30,9 @@ public class LivrariaApi20202Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		inserirDados();
+
 		System.out.println("GRAVANDO UM LIVRO E UMA EDITORA");
 		Livro livro = new Livro("Java Como Programar", LocalDate.of(2017, 8, 20), 250, new BigDecimal("15.00"));
 		this.servicoLivros.salvar(livro);
@@ -46,6 +49,11 @@ public class LivrariaApi20202Application implements CommandLineRunner {
 		// Buscando vários livros pelos seus IDs (1, 3 e 5)
 		System.out.println("BUSCANDO VÁRIOS LIVROS PELOS SEUS IDS");
 		List<Livro> livros2 = this.servicoLivros.buscarPelosIDs(new ArrayList<Long>() {
+			/**
+			 *
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				add(1L);
 				add(3L);
@@ -131,8 +139,37 @@ public class LivrariaApi20202Application implements CommandLineRunner {
 		 * Listar os livros publicados antes de 31/12/1972? 
 		 * Listar os livros publicados entre 01/01/1943 e 15/11/1955?
 		 */
-		
+		System.out.println("LIVROS PUBLICADOS DEPOIS DE 01/01/1995");
+		this.servicoLivros.buscarDataPublicacaoDepoisDe(LocalDate.of(1995, 1, 1)).forEach(System.out::println);
 
+		System.out.println("LIVROS PUBLICADOS ANTES DE 31/12/1972");
+		this.servicoLivros.buscarDataPublicacaoAntesDe(LocalDate.of(1972, 12, 31)).forEach(System.out::println);
+
+		System.out.println("LIVROS PUBLICADOS ENTRE 01/01/1943 E 15/11/1955");
+		this.servicoLivros.buscarDataPublicacaoEntre(LocalDate.of(1943, 1, 1), LocalDate.of(1955, 11, 15)).forEach(System.out::println);
+
+
+
+
+
+	}
+
+	public void inserirDados() {
+		
+		this.servicoLivros.salvar(new Livro("Sobre Mouses e Homens", LocalDate.of(1954, 11, 8), 100, new BigDecimal("11.00")));
+		this.servicoLivros.salvar(new Livro("Um Estranho no Ninho", LocalDate.of(1973, 11, 8), 200, new BigDecimal("51.00")));
+		this.servicoLivros.salvar(new Livro("Por Quem os Sinos Dobram", LocalDate.of(1932, 11, 8), 100, new BigDecimal("13.00")));
+		this.servicoLivros.salvar(new Livro("Guerra e Paz", LocalDate.of(1955, 11, 8), 140, new BigDecimal("15.00")));
+		this.servicoLivros.salvar(new Livro("As Vinhas da Ira", LocalDate.of(1955, 11, 8), 300, new BigDecimal("16.00")));
+		this.servicoLivros.salvar(new Livro("Padrões de Design", LocalDate.of(1996, 11, 8), 180, new BigDecimal("14.00")));
+		this.servicoLivros.salvar(new Livro("Um Conto de Duas Cidades", LocalDate.of(1943, 11, 8), 400, new BigDecimal("15.00")));
+		
+		this.servicoEditoras.salvar(new Editora("Campus", "Rio de Janeiro", 2000));
+		this.servicoEditoras.salvar(new Editora("Saraiva", "São Paulo", 1950));
+		this.servicoEditoras.salvar(new Editora("Moderna", "Rio de Janeiro", 1964));
+		this.servicoEditoras.salvar(new Editora("Bookman", "Florianópolis", 2002));
+		this.servicoEditoras.salvar(new Editora("Atlas", "Porto Alegre", 1994));
+		this.servicoEditoras.salvar(new Editora("Pearson", "São Paulo", 2010));
 	}
 
 }
