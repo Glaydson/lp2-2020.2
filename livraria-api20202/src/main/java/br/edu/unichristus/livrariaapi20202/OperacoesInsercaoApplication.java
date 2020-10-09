@@ -2,6 +2,8 @@ package br.edu.unichristus.livrariaapi20202;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +17,8 @@ import br.edu.unichristus.livrariaapi20202.servicos.AutorService;
 import br.edu.unichristus.livrariaapi20202.servicos.EditoraService;
 import br.edu.unichristus.livrariaapi20202.servicos.LivroService;
 
-//@SpringBootApplication
-public class LivrariaApi20202ApplicationEditoras implements CommandLineRunner {
+@SpringBootApplication
+public class OperacoesInsercaoApplication implements CommandLineRunner {
 
 	@Autowired
 	private LivroService servicoLivros;
@@ -28,7 +30,7 @@ public class LivrariaApi20202ApplicationEditoras implements CommandLineRunner {
 	private AutorService servicoAutores;
 
 	public static void main(String[] args) {
-		SpringApplication.run(LivrariaApi20202ApplicationEditoras.class, args);
+		SpringApplication.run(OperacoesInsercaoApplication.class, args);
 	}
 
 	@Override
@@ -36,34 +38,32 @@ public class LivrariaApi20202ApplicationEditoras implements CommandLineRunner {
 
 		inserirDados();
 		
-		/* Alterar a cidade da editora Bookman para Porto Alegre
-		Remover a editora Moderna
-		Buscar as editoras com sede no Rio de Janeiro
-		Buscar as editoras cujo nome inicie pelas letras ‘A’ ou ‘B’
-		Buscar as editoras do Rio de Janeiro e de São Paulo */
-		
-		System.out.println("ALTERANDO A CIDADE DA EDITORA BOOKMAN");
-		Editora bookman = this.servicoEditoras.buscarPeloNome("Bookman");
-		bookman.setCidade("Porto Alegre");
-		this.servicoEditoras.salvar(bookman);
+		// Inserindo uma nova editora e um livro associado
+		Editora cultura = new Editora("Cultura", "São Paulo", 2020);
+		Livro livro1 = new Livro("JPA Avançado", LocalDate.of(2020, 10, 8), 190, new BigDecimal(50) );
+		livro1.setEditora(cultura);
 
-		System.out.println("REMOVENDO A EDITORA MODERNA");
-		Editora moderna = this.servicoEditoras.buscarPeloNome("Moderna");
-		this.servicoEditoras.remover(moderna);
+		this.servicoEditoras.salvar(cultura);
+		this.servicoLivros.salvar(livro1);
 
-		System.out.println("BUSCA EDITORAS COM SEDE NO RIO");
-		this.servicoEditoras.buscarPelaSede("Rio de Janeiro").forEach(System.out::println);
+		// Inserir um novo livro com um único autor
+		Autor jose = new Autor("José da Silva", "Brasil");
+		Autor maria = new Autor("Maria", "Argentina");
+		Livro livro2 = new Livro("Spring Boot", LocalDate.of(2020, 10, 8), 100, new BigDecimal(10) );
+		List<Autor> autores = new ArrayList<>();
+		autores.add(jose);
+		autores.add(maria);
 
-		System.out.println("EDITORAS CUJO NOME INICIA POR A OU POR B");
-		this.servicoEditoras.buscarPeloNomeIniciandoPorLetra1OuLetra2("A", "B").forEach(System.out::println);
+		livro2.setAutores(autores);
 
-		System.out.println("EDITORAS DO RIO DE JANEIRO E SÃO PAULO");
-		this.servicoEditoras.buscarPelaCidade1eCidade2("Rio de Janeiro", "São Paulo");
-		this.servicoEditoras.buscarPelaSede("Rio de Janeiro").forEach(System.out::println);
-		this.servicoEditoras.buscarPelaSede("São Paulo").forEach(System.out::println);
+		this.servicoAutores.salvar(jose);
+		this.servicoAutores.salvar(maria);
+		this.servicoLivros.salvar(livro2);
 
-		System.out.println("EDITORAS FUNDADAS DEPOIS DE 2005");
-		this.servicoEditoras.buscarPeloAnoFundacaoMaiorQue(2005).forEach(System.out::println);
+		// TODOS OS LIVROS DE UMA EDITORA
+		List<Livro> livrosCultura = this.servicoLivros.buscarPeloNomeDaEditora("Cultura");
+		livrosCultura.forEach(System.out::println);
+
 	}
 
 	public void inserirDados() {

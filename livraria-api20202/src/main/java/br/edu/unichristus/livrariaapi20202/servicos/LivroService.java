@@ -117,4 +117,8 @@ public class LivroService {
         return this.repoLivros.findByTituloContainingOrderByTituloAsc(titulo);
     }
 
+    public List<Livro> buscarPeloNomeDaEditora(String nome) {
+        return this.repoLivros.findByEditoraNome(nome);
+    }
+
 }

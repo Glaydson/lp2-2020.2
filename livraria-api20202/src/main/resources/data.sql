@@ -12,3 +12,17 @@ insert into tb_editoras(editora_id, nome, cidade, ano_fundacao) values(3, 'Moder
 insert into tb_editoras(editora_id, nome, cidade, ano_fundacao) values(4, 'Bookman', 'Florianópolis', 2002);
 insert into tb_editoras(editora_id, nome, cidade, ano_fundacao) values(5, 'Atlas', 'Porto Alegre', 1994);
 insert into tb_editoras(editora_id, nome, cidade, ano_fundacao) values(6, 'Pearson', 'São Paulo', 2010);
+
+insert into tb_autores(autor_id, nome, pais) values (1,'Orson Welles', 'Inglaterra');
+insert into tb_autores(autor_id, nome, pais) values (2,'Aldous Huxley', 'Inglaterra');
+insert into tb_autores(autor_id, nome, pais) values (3,'Leo Tolstoi', 'Rússia');
+insert into tb_autores(autor_id, nome, pais) values (4,'Sérgio Iudicibus', 'Brasil');
+insert into tb_autores(autor_id, nome, pais) values (5,'Harvey Deitel', 'Estados Unidos');
+insert into tb_autores(autor_id, nome, pais) values (6,'Paul Deitel', 'Estados Unidos');
+
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (1, 1);
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (2, 2);
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (3, 4);
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (4, 5);
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (5, 3);
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (6, 3);
