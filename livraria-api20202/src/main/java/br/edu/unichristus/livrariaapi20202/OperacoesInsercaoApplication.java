@@ -36,7 +36,7 @@ public class OperacoesInsercaoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		inserirDados();
+		//inserirDados();
 		
 		// Inserindo uma nova editora e um livro associado
 		Editora cultura = new Editora("Cultura", "São Paulo", 2020);

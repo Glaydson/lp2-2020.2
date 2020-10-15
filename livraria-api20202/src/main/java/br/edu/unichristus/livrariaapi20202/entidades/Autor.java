@@ -17,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "TB_AUTORES")
 public class Autor {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AUTOR_ID")
@@ -29,7 +29,7 @@ public class Autor {
     @Column(name = "PAIS")
     private String pais;
 
-    @ManyToMany(mappedBy = "autores", fetch = FetchType.EAGER);
+    @ManyToMany(mappedBy = "autores", fetch = FetchType.EAGER)
     private List<Livro> livros;
 
     public Autor(String nome, String pais) {
@@ -37,12 +37,11 @@ public class Autor {
         this.pais = pais;
     }
 
-    public Autor() {}
+    public Autor() { }
 
     @Override
     public String toString() {
         return "Autor [autorID=" + autorID + ", livros=" + livros + ", nome=" + nome + ", pais=" + pais + "]";
     }
 
-    
 }
