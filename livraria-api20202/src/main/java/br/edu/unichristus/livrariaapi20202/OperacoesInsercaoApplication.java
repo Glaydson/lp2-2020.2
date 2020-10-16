@@ -17,7 +17,7 @@ import br.edu.unichristus.livrariaapi20202.servicos.AutorService;
 import br.edu.unichristus.livrariaapi20202.servicos.EditoraService;
 import br.edu.unichristus.livrariaapi20202.servicos.LivroService;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class OperacoesInsercaoApplication implements CommandLineRunner {
 
 	@Autowired

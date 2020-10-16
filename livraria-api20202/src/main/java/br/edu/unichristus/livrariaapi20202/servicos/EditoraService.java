@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.unichristus.livrariaapi20202.entidades.Editora;
+import br.edu.unichristus.livrariaapi20202.excecoes.EditoraInexistenteException;
+import br.edu.unichristus.livrariaapi20202.excecoes.EditoraJaExistenteException;
 import br.edu.unichristus.livrariaapi20202.repositorios.EditoraRepository;
 
 @Service
@@ -15,8 +17,13 @@ public class EditoraService {
     private EditoraRepository repo;
 
     public void salvar(Editora editora) {
-        this.repo.save(editora);
-        System.out.println("Editora " + editora.getNome() + " gravada!");
+        Editora e = this.buscarPeloNome(editora.getNome());
+        if (e != null) {
+            this.repo.save(editora);
+            System.out.println("Editora " + editora.getNome() + " gravada!");
+        } else {
+            throw new EditoraJaExistenteException(editora.getNome());
+        }
     }
 
     public Editora buscarPeloNome(String nome) {
@@ -28,8 +35,13 @@ public class EditoraService {
     }
 
     public void remover(Editora editora) {
-        this.repo.delete(editora);
-        System.out.println("Editora " + editora.getNome() + " removida!");
+        if (this.repo.findById(editora.getEditoraID()).isPresent()) {
+            this.repo.delete(editora);
+            System.out.println("Editora " + editora.getNome() + " removida!");
+        } else {
+            throw new EditoraInexistenteException(editora.getNome());
+        }
+
     }
 
     public void removerTodos() {
