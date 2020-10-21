@@ -17,7 +17,7 @@ import br.edu.unichristus.livrariaapi20202.servicos.AutorService;
 import br.edu.unichristus.livrariaapi20202.servicos.EditoraService;
 import br.edu.unichristus.livrariaapi20202.servicos.LivroService;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class OperacoesInsercaoApplication implements CommandLineRunner {
 
 	@Autowired
@@ -39,30 +39,30 @@ public class OperacoesInsercaoApplication implements CommandLineRunner {
 		//inserirDados();
 		
 		// Inserindo uma nova editora e um livro associado
-		Editora cultura = new Editora("Cultura", "São Paulo", 2020);
-		Livro livro1 = new Livro("JPA Avançado", LocalDate.of(2020, 10, 8), 190, new BigDecimal(50) );
-		livro1.setEditora(cultura);
-
-		this.servicoEditoras.salvar(cultura);
-		this.servicoLivros.salvar(livro1);
-
-		// Inserir um novo livro com um único autor
-		Autor jose = new Autor("José da Silva", "Brasil");
-		Autor maria = new Autor("Maria", "Argentina");
-		Livro livro2 = new Livro("Spring Boot", LocalDate.of(2020, 10, 8), 100, new BigDecimal(10) );
-		List<Autor> autores = new ArrayList<>();
-		autores.add(jose);
-		autores.add(maria);
-
-		livro2.setAutores(autores);
-
-		this.servicoAutores.salvar(jose);
-		this.servicoAutores.salvar(maria);
-		this.servicoLivros.salvar(livro2);
-
-		// TODOS OS LIVROS DE UMA EDITORA
-		List<Livro> livrosCultura = this.servicoLivros.buscarPeloNomeDaEditora("Cultura");
-		livrosCultura.forEach(System.out::println);
+//		Editora cultura = new Editora("Cultura", "São Paulo", 2020);
+//		Livro livro1 = new Livro("JPA Avançado", LocalDate.of(2020, 10, 8), 190, new BigDecimal(50) );
+//		livro1.setEditora(cultura);
+//
+//		this.servicoEditoras.salvar(cultura);
+//		this.servicoLivros.salvar(livro1);
+//
+//		// Inserir um novo livro com um único autor
+//		Autor jose = new Autor("José da Silva", "Brasil");
+//		Autor maria = new Autor("Maria", "Argentina");
+//		Livro livro2 = new Livro("Spring Boot", LocalDate.of(2020, 10, 8), 100, new BigDecimal(10) );
+//		List<Autor> autores = new ArrayList<>();
+//		autores.add(jose);
+//		autores.add(maria);
+//
+//		livro2.setAutores(autores);
+//
+//		this.servicoAutores.salvar(jose);
+//		this.servicoAutores.salvar(maria);
+//		this.servicoLivros.salvar(livro2);
+//
+//		// TODOS OS LIVROS DE UMA EDITORA
+//		List<Livro> livrosCultura = this.servicoLivros.buscarPeloNomeDaEditora("Cultura");
+//		livrosCultura.forEach(System.out::println);
 
 	}
 

@@ -13,7 +13,7 @@ import br.edu.unichristus.livrariaapi20202.entidades.Cliente;
 import br.edu.unichristus.livrariaapi20202.entidades.Endereco;
 import br.edu.unichristus.livrariaapi20202.servicos.ClienteService;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class OperacoesMongoDbApplication implements CommandLineRunner {
 
 	@Autowired

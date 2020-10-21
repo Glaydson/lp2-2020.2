@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -41,10 +43,12 @@ public class Livro {
 
     @ManyToOne   // sem mappedBy, pois é o dono da relação
     @JoinColumn(name = "EDITORA_ID")
+    @JsonIgnoreProperties("livros")
     private Editora editora;
 
     @ManyToMany
     @JoinTable(name = "TB_LIVROS_AUTORES")
+    @JsonIgnoreProperties("livros")
     private List<Autor> autores;
 
     public Livro() { }
