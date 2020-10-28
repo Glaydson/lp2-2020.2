@@ -4,12 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class EditoraInexistenteException extends RuntimeException {
+public class AutorNaoEncontradoException extends RuntimeException {
 
-    public EditoraInexistenteException(String nome) {
-        super("Editora " + nome + " não existe!");
-    }
+	public AutorNaoEncontradoException(Long id) {
+		super("O autor com o ID " + id + " não foi encontrado.");
+	}
 
-    
-
+	
 }
