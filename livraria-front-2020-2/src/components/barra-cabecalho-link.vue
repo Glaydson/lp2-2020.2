@@ -1,0 +1,24 @@
+<template>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a href="https://github.com/glaydson/livraria-front-2020-1.git"
+            target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      github: 'https://github.com/glaydson/livraria-front-2020-1.git',
+    };
+  },
+};
+</script>
