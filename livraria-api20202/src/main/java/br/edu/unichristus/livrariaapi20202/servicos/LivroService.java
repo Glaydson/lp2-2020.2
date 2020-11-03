@@ -18,9 +18,9 @@ public class LivroService {
 	@Autowired
 	private LivroRepository repoLivros;
 
-	public void salvar(Livro livro) {
-		this.repoLivros.save(livro);
+	public Livro salvar(Livro livro) {
 		System.out.printf("Livro %s gravado!%n", livro.getTitulo());
+		return this.repoLivros.save(livro);
 	}
 
 	public Livro buscarPeloID(long idLivro) {

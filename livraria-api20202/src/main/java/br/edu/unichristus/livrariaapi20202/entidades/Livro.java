@@ -14,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,49 +27,50 @@ import lombok.Data;
 @Table(name = "TB_LIVROS")
 public class Livro {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LIVRO_ID")
-    private Long livroID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "LIVRO_ID")
+	private Long livroID;
 
-    @Column(name = "TITULO")
-    private String titulo;
+	@NotNull
+	@Size(min = 2, message = "O título deve ter pelo menos 2 caracteres")
+	@Column(name = "TITULO")
+	private String titulo;
 
-    @Column(name = "DATA_PUBLICACAO")
-    private LocalDate dataPublicacao;
+	@Column(name = "DATA_PUBLICACAO")
+	private LocalDate dataPublicacao;
 
-    @Column(name = "NUMERO_PAGINAS")
-    private int numeroPaginas;
+	@Min(value = 50, message = "O livro deve ter pelo menos 2 páginas")
+	@Column(name = "NUMERO_PAGINAS")
+	private int numeroPaginas;
 
-    @Column(name = "PRECO")
-    private BigDecimal preco;
+	@Column(name = "PRECO")
+	private BigDecimal preco;
 
-    @ManyToOne   // sem mappedBy, pois é o dono da relação
-    @JoinColumn(name = "EDITORA_ID")
-    @JsonIgnoreProperties("livros")
-    private Editora editora;
+	@ManyToOne // sem mappedBy, pois é o dono da relação
+	@JoinColumn(name = "EDITORA_ID")
+	@JsonIgnoreProperties("livros")
+	private Editora editora;
 
-    @ManyToMany
-    @JoinTable(name = "TB_LIVROS_AUTORES")
-    @JsonIgnoreProperties("livros")
-    private List<Autor> autores;
+	@ManyToMany
+	@JoinTable(name = "TB_LIVROS_AUTORES")
+	@JsonIgnoreProperties("livros")
+	private List<Autor> autores;
 
-    public Livro() { }
+	public Livro() {
+	}
 
-    public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco) {
-        this.titulo = titulo;
-        this.dataPublicacao = dataPublicacao;
-        this.numeroPaginas = numeroPaginas;
-        this.preco = preco;
-    }
+	public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco) {
+		this.titulo = titulo;
+		this.dataPublicacao = dataPublicacao;
+		this.numeroPaginas = numeroPaginas;
+		this.preco = preco;
+	}
 
-    @Override
-    public String toString() {
-        return "Livro [dataPublicacao=" + dataPublicacao + ", livroID=" + livroID + ", numeroPaginas=" + numeroPaginas
-                + ", preco=" + preco + ", titulo=" + titulo + "]";
-    }
-
-    
-    
+	@Override
+	public String toString() {
+		return "Livro [dataPublicacao=" + dataPublicacao + ", livroID=" + livroID + ", numeroPaginas=" + numeroPaginas
+				+ ", preco=" + preco + ", titulo=" + titulo + "]";
+	}
 
 }
