@@ -58,11 +58,26 @@
         </div>
 
         <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="idDisponivel">Disponível</label>
+  
+          <div class="col-md-8">
+              <input class="form-control"
+                   id="idDisponivel"
+                   type="checkbox"
+                   v-model="livro.ativo"/>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
             <label class="col-md-2 col-form-label" 
                 for="autores">Autores</label>
             <div class="col-md-8">
                 <select multiple class="form-control" 
-                    id="autores" v-model="livro.autores">
+                    id="autores" v-model="livro.autores"
+                    :class="{ invalid: !livro.autores.length}"
+                    @keyup.esc="limpaAutor()">
+                    <option disabled value>Selecione um</option>
                     <option>Autor 1</option>
                     <option>Autor 2</option>
                     <option>Autor 3</option>
@@ -71,13 +86,14 @@
                 </select>
             </div>
         </div>
+
   
         <div class="form-group row mb-2">
           <div class="offset-md-2 col-md-4">
             <button class="btn btn-primary mr-3"
                     style="width:100px;"
                     type="submit"
-                    @click="salvarLivro()">
+                    v-on:click="salvarLivro()">
               Salvar
             </button>
             <button class="btn btn-outline-secondary mr-3"
@@ -92,7 +108,7 @@
       </form>
     </div>
     <div> 
-        <p>{{message}}</p>
+        <p>{{mensagem}}</p>
     </div>
   </div>
 </template>
@@ -111,18 +127,21 @@ export default {
         autores: ['Autor 1', 'Autor 2'],
         ativo: true,
       },
-      message: '',
+      mensagem: '',
     };
   },
   methods: {
-    cancelarLivro() {
-      this.message = '';
+    cancelarEdicao() {
+      this.mensagem = '';
     },
     salvarLivro() {
       // This only updates when you click the save button
-      this.message = JSON.stringify(this.livro, null, '\n ');
+      this.mensagem = JSON.stringify(this.livro, null, '\n ');
       console.log(this.message)
     },
+    limpaAutor() {
+      this.livro.autores = [];
+    }
   },
 };
 </script>

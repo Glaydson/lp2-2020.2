@@ -3,7 +3,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a href="https://github.com/glaydson/lp1-2020-2.git"
+          <a :href="github"
             target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github fa-2x" aria-hidden="true"></i>
           </a>
@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      github: 'https://github.com/glaydson/livraria-front-2020-1.git',
+      github: 'https://github.com/glaydson/lp1-2020-2.git',
     };
   },
 };
