@@ -3,7 +3,7 @@
     <BarraCabecalho />
     <div class="main-section columns">
       <main class="column">
-        <FormLivro />
+        <ListaLivros />
       </main>
     </div>
   </div>
@@ -11,12 +11,12 @@
 
 <script>
 import BarraCabecalho from "@/components/barra-cabecalho.vue";
-import FormLivro from "@/components/form-livro.vue";
+import ListaLivros from "@/components/lista-livros.vue";
 
 export default {
   name: "App",
   components: {
-    BarraCabecalho, FormLivro
+    BarraCabecalho, ListaLivros
   }
 };
 </script>
