@@ -40,7 +40,7 @@ public class Livro {
 	@Column(name = "DATA_PUBLICACAO")
 	private LocalDate dataPublicacao;
 
-	@Min(value = 50, message = "O livro deve ter pelo menos 2 páginas")
+	@Min(value = 50, message = "O livro deve ter pelo menos 50 páginas")
 	@Column(name = "NUMERO_PAGINAS")
 	private int numeroPaginas;
 
