@@ -73,7 +73,7 @@
               id="autores"
               v-model="livro.autores"
               :class="{ invalid: !livro.autores.length }"
-              @keyup.esc="limpaAutor()">
+              @keyup.esc="limpaAutor">
               <option disabled value>Selecione um</option>
               <option>Autor 1</option>
               <option>Autor 2</option>
