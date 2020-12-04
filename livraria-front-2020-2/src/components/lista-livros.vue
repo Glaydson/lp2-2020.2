@@ -37,12 +37,12 @@
         <div class="form-group">
             <label for="dataPublicacao">Data da Publicação</label>
             <input
-            type="text"
-            class="form-control"
-            id="dataPublicacao"
-            disabled
-            :value="livroSelecionado.dataPublicacao"
+                type="date"
+                class="form-control"
+                id="dataPublicacao"
+                v-model="livroSelecionado.dataPublicacao"
             />
+            <label>Data longa: {{ livroSelecionado.dataPublicacao | dataLonga}}</label>
         </div>
         
         <div class="form-group form-check">
@@ -75,11 +75,15 @@
   </div>
 </template>
 <script>
+
+import { format } from 'date-fns';
+const inputDateFormat = 'yyyy-MM-dd';
+
 const nossosLivros = [
     {
         id: 20,
         titulo: "Java Como Programar",
-        dataPublicacao: "2000-03-08",
+        dataPublicacao: format(new Date(2020, 8, 1), inputDateFormat),
         preco: 50,
         numeroPaginas: 300,
         autores: ["Autor 1", "Autor 2"],
@@ -88,7 +92,7 @@ const nossosLivros = [
     {
         id: 21,
         titulo: "Vue.JS Framework",
-        dataPublicacao: "2020-10-08",
+        dataPublicacao: format(new Date(2019, 5, 15), inputDateFormat),
         preco: 150,
         numeroPaginas: 300,
         autores: ["Autor 3", "Autor 4"],
@@ -97,7 +101,7 @@ const nossosLivros = [
     {
         id: 22,
         titulo: "C Como Programar",
-        dataPublicacao: "2018-11-08",
+        dataPublicacao: format(new Date(2018, 11, 8), inputDateFormat),
         preco: 100,
         numeroPaginas: 600,
         autores: ["Autor 1"],        
