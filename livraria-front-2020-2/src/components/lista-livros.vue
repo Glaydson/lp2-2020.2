@@ -51,15 +51,12 @@
         </div>
 
         <div class="form-group" v-show="mostrarMais">
-            <label for="preco">Preço</label>
-            <input
-            type="text"
-            class="form-control"
-            id="preco"
-            disabled
-            :value="livroSelecionado.preco"
-            />
+          <label for="preco">Preço</label>
+          <input type="number" class="form-control" id="preco" 
+            v-model="livroSelecionado.preco" />
+          <label>{{mensagemPreco}}</label>
         </div>
+
         <div class="form-group" v-show="mostrarMais">
             <label for="autores">Autor(es)</label>
             <input
@@ -115,7 +112,8 @@ export default {
            livros: [],
            livroSelecionado: undefined,
            mostrarMais: false,
-           mensagem: ''
+           mensagem: '',
+           mensagemPreco: '',
         }
     },
     created () {
@@ -132,7 +130,16 @@ export default {
             this.mensagem = 'Obtendo os livros. Por favor aguarde...';
             this.livros = await this.getLivros();
             this.mensagem = '';
-        }   
+        },   
+        processaMudancaPreco(valorAntigo, valorNovo) {
+            if (valorAntigo == undefined) {
+                this.mensagemPreco = "";
+        } else {
+            if (valorAntigo > valorNovo) {
+                this.mensagemPreco = "O preço caiu";
+                } else this.mensagemPreco = "O preço subiu";
+            }
+        },
     },
     computed: {
         tituloDisponibilidade() {
@@ -140,6 +147,16 @@ export default {
                         this.livroSelecionado.disponivel ? "Disponível" : "Indisponível"
                 }`;
         }
+    },
+    watch: {
+      "livroSelecionado.preco": {
+      immediate: false,
+      handler(valorNovo, valorAntigo) {
+        console.log(`Watcher avaliado. antigo=${valorAntigo}, novo=${valorNovo}`);
+        this.processaMudancaPreco(valorAntigo, valorNovo);
+      }
+    }
+
     },
 }
 </script>
