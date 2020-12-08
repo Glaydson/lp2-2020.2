@@ -71,6 +71,7 @@
     </div>
   </div>
 </template>
+
 <script>
 
 import { format } from 'date-fns';
@@ -161,5 +162,17 @@ export default {
 }
 </script>
 <style scoped>
-
+    li a {
+    cursor: pointer;
+    }
+    .card-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    }
+    .notification {
+    background-color: blue;
+    color: white;
+    font-size: 16px;
+    line-height: 30px;
+    }
 </style>

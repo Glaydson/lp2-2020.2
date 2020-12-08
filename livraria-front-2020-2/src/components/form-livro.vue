@@ -73,7 +73,8 @@
               id="autores"
               v-model="livro.autores"
               :class="{ invalid: !livro.autores.length }"
-              @keyup.esc="limpaAutor">
+              @keyup.esc="limpaAutor"
+            >
               <option disabled value>Selecione um</option>
               <option>Autor 1</option>
               <option>Autor 2</option>
@@ -85,11 +86,17 @@
         </div>
 
         <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label" for="idDisponivel">Disponível</label>
+          <label class="col-md-2 col-form-label" for="idDisponivel"
+            >Disponível</label
+          >
 
           <div class="col-md-8">
-            <input class="form-control" id="idDisponivel" 
-              type="checkbox" v-model="livro.disponivel" />
+            <input
+              class="form-control"
+              id="idDisponivel"
+              type="checkbox"
+              v-model="livro.disponivel"
+            />
           </div>
         </div>
 
@@ -99,7 +106,8 @@
               class="btn btn-primary mr-3"
               style="width: 100px"
               type="submit"
-              v-on:click="salvarLivro">
+              v-on:click="salvarLivro"
+            >
               Salvar
             </button>
             <button
@@ -107,7 +115,8 @@
               style="width: 100px"
               type="button"
               title="Cancelar suas edições"
-              @click="cancelarEdicao">
+              @click="cancelarEdicao"
+            >
               Cancelar
             </button>
           </div>
@@ -154,21 +163,21 @@ export default {
 </script>
 
 <style scoped>
-  header {
-    font-weight: bold;
-    font-family: Arial;
-  }
-  .card-header {
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .notification pre {
-    background-color: blue;
-    color: white;
-    font-size: 16px;
-    line-height: 12px;
-  }
-  select.invalid {
-    border-left: 10px red solid;
-  }
+header {
+  font-weight: bold;
+  font-family: Arial;
+}
+.card-header {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.notification pre {
+  background-color: blue;
+  color: white;
+  font-size: 16px;
+  line-height: 12px;
+}
+select.invalid {
+  border-left: 10px red solid;
+}
 </style>

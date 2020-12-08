@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { LivroDetalhe } from '@/components/livro-detalhe.vue'
+import LivroDetalhe from "@/components/livro-detalhe.vue";
 import { format } from "date-fns";
 
 const inputDateFormat = "yyyy-MM-dd";
@@ -195,21 +195,21 @@ export default {
 </script>
 
 <style scoped>
-li a {
-  cursor: pointer;
-}
-.card-header {
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.notification {
-  background-color: blue;
-  color: white;
-  font-size: 16px;
-  line-height: 30px;
-}
-.botoes {
-  width: 120px;
-  margin-right: 20px;
-}
+  li a {
+    cursor: pointer;
+  }
+  .card-header {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .notification {
+    background-color: blue;
+    color: white;
+    font-size: 16px;
+    line-height: 30px;
+  }
+  .botoes {
+    width: 120px;
+    margin-right: 20px;
+  }
 </style>
