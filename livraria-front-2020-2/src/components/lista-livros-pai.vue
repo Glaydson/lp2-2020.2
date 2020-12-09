@@ -17,64 +17,12 @@
         </ul>
         <div class="notification" v-show="mensagem">{{ mensagem }}</div>
       </div>
-      <div v-if="livroSelecionado">
-        <LivroDetalhe :livro="livroSelecionado"/>
-        <div class="card-header">{{tituloDisponibilidade}}</div>
-        <form>
-          <div class="form-group">
-            <label for="id">Id</label>
-            <input type="text" class="form-control" id="id" disabled :value="livroSelecionado.id" />
-          </div>
-          <div class="form-group">
-            <label for="titulo">Título</label>
-            <input
-              type="text"
-              class="form-control"
-              id="idTitulo"
-              :value="livroSelecionado.titulo"
-            />
-          </div>
-          <div class="form-group">
-            <label for="dataPublicacao">Data da Publicação</label>
-            <input
-              type="date"
-              class="form-control"
-              id="dataPublicacao"
-              v-model="livroSelecionado.dataPublicacao"
-            />
-            <label>Data longa: {{ livroSelecionado.dataPublicacao | formatDate}}</label>
-          </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="mostrar" v-model="mostrarMais" />
-            <label for="mostrar" class="form-check-label">Mostrar Mais Campos</label>
-          </div>
-          <div class="form-group" v-show="mostrarMais">
-            <label for="preco">Preço</label>
-            <input type="number" class="form-control" id="preco" v-model="livroSelecionado.preco" />
-            <label>{{mensagemPreco}}</label>
-          </div>
-          <div class="form-group" v-show="mostrarMais">
-            <label for="autores">Autor(es)</label>
-            <input
-              type="text"
-              class="form-control"
-              id="autores"
-              disabled
-              :value="livroSelecionado.autores"
-            />
-          </div>
-          <footer class="card-footer">
-            <button class="btn btn-secondary botoes" @click="cancelarLivro()">
-              <i class="fas fa-undo"></i>
-              <span>Cancelar</span>
-            </button>
-            <button class="btn btn-primary botoes" @click="salvarLivro()">
-              <i class="fas fa-save"></i>
-              <span>Salvar</span>
-            </button>
-          </footer>
-        </form>
-      </div>
+      <!-- Detalhamento de um livro -->
+      <LivroDetalhe 
+          v-if="livroSelecionado" 
+          :livro="livroSelecionado"
+          @salvar="salvarLivro(livro)"
+          @cancelar="cancelarEdicao" />
     </div>
   </div>
 </template>
@@ -127,22 +75,15 @@ export default {
   data() {
     return {
       livroSelecionado: undefined,
-      mostrarMais: false,
       livros: [],
       mensagem: "",
-      mensagemPreco: ""
+  
     };
   },
   components: {
       LivroDetalhe
   },
-  computed: {
-    tituloDisponibilidade() {
-      return `${this.livroSelecionado.titulo} - ${
-        this.livroSelecionado.disponivel ? "Disponível" : "Indisponível"
-      }`;
-    }
-  },
+  
   created() {
     this.carregarLivros();
   },
@@ -158,39 +99,22 @@ export default {
       this.livros = await this.getLivros();
       this.mensagem = "";
     },
-    processaMudancaPreco(valorAntigo, valorNovo) {
-      if (valorAntigo == undefined) {
-        this.mensagemPreco = "";
-      } else {
-        if (valorAntigo > valorNovo) {
-          this.mensagemPreco = "O preço caiu";
-        } else this.mensagemPreco = "O preço subiu";
-      }
-    },
-    salvarLivro() {
-      const index = this.livros.findIndex(l => l.id === this.livroSelecionado.id);
-      this.livros.splice(index, 1, this.livroSelecionado);
+    
+    salvarLivro(livro) {
+      const index = this.livros.findIndex(l => l.id === livro.id);
+      console.log(livro);
+      this.livros.splice(index, 1, this.livro);
       this.livros = [...this.livros];
       this.livroSelecionado = undefined;
     },
-    cancelarLivro() {
+    cancelarEdicao() {
       this.livroSelecionado = undefined;
     },
     selecionarLivro(livro) {
       this.livroSelecionado = livro;
     },
   },
-  watch: {
-    "livroSelecionado.preco": {
-      immediate: false,
-      handler(valorNovo, valorAntigo) {
-        console.log(
-          `Watcher avaliado. antigo=${valorAntigo}, novo=${valorNovo}`
-        );
-        this.processaMudancaPreco(valorAntigo, valorNovo);
-      }
-    }
-  }
+  
 };
 </script>
 
