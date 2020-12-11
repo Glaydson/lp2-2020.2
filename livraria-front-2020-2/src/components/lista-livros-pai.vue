@@ -17,19 +17,24 @@
         </ul>
         <div class="notification" v-show="mensagem">{{ mensagem }}</div>
       </div>
-      <!-- Detalhamento de um livro -->
-      <LivroDetalhe 
+      <!-- Edição de um livro -->
+      <EditarLivroForm 
           v-if="livroSelecionado" 
           :livro="livroSelecionado"
-          @salvar="salvarLivro(livro)"
+          :todosAutores="autores"
+          :todasEditoras="editoras"
+          @atualizar="atualizarLivro"
           @cancelar="cancelarEdicao" />
     </div>
   </div>
 </template>
 
 <script>
-import LivroDetalhe from "@/components/livro-detalhe.vue";
+import EditarLivroForm from "@/components/editar-livro-form.vue";
 import { format } from "date-fns";
+import { dadosLivros } from "../compartilhado/livroService";
+import { dadosAutores } from "../compartilhado/autoresService";
+import { dadosEditoras } from "../compartilhado/editorasService";
 
 const inputDateFormat = "yyyy-MM-dd";
 const nossosLivros = [
@@ -76,16 +81,20 @@ export default {
     return {
       livroSelecionado: undefined,
       livros: [],
+      autores: [],
+      editoras: [],
       mensagem: "",
   
     };
   },
   components: {
-      LivroDetalhe
+      EditarLivroForm
   },
   
-  created() {
-    this.carregarLivros();
+  async created() {
+    await this.carregarLivros();
+    await this.carregarAutores();
+    await this.carregarEditoras();
   },
   methods: {
     async getLivros() {
@@ -96,13 +105,19 @@ export default {
     async carregarLivros() {
       this.livros = [];
       this.mensagem = "Obtendo os livros. Por favor aguarde...";
-      this.livros = await this.getLivros();
+      this.livros = await dadosLivros.getLivros();
       this.mensagem = "";
     },
-    
+    async carregarAutores() {
+      this.autores = await dadosAutores.getAutores();
+    },
+    async carregarEditoras() {
+      this.editoras = await dadosEditoras.getEditoras();
+    },
     salvarLivro(livro) {
       const index = this.livros.findIndex(l => l.id === livro.id);
       console.log(livro);
+      setTimeout(5000);
       this.livros.splice(index, 1, this.livro);
       this.livros = [...this.livros];
       this.livroSelecionado = undefined;

@@ -23,7 +23,7 @@
               id="dataPublicacao"
               v-model="livroClonado.dataPublicacao"
             />
-            <label>Data longa: {{ livroClonado.dataPublicacao | formatDate}}</label>
+            <label>Data longa: {{ livroClonado.dataPublicacao | dataLonga}}</label>
           </div>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="mostrar" v-model="mostrarMais" />
