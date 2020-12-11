@@ -25,6 +25,10 @@ public class EditoraService {
             throw new EditoraJaExistenteException(editora.getNome());
         }
     }
+    
+    public List<Editora> buscarTodos() {
+    	return this.repo.findAll();
+    }
 
     public Editora buscarPeloNome(String nome) {
         return this.repo.findByNome(nome);
