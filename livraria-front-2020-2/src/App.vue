@@ -3,7 +3,7 @@
     <BarraCabecalho />
     <div class="main-section columns">
       <main class="column">
-        <ListaLivros />
+        <ListaLivrosPai />
       </main>
     </div>
   </div>
@@ -11,12 +11,12 @@
 
 <script>
 import BarraCabecalho from "@/components/barra-cabecalho.vue";
-import ListaLivros from "@/components/lista-livros.vue";
+import ListaLivrosPai from "@/components/lista-livros-pai.vue";
 
 export default {
   name: "App",
   components: {
-    BarraCabecalho, ListaLivros
+    BarraCabecalho, ListaLivrosPai
   }
 };
 </script>

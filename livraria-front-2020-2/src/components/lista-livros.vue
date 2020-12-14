@@ -37,12 +37,12 @@
         <div class="form-group">
             <label for="dataPublicacao">Data da Publicação</label>
             <input
-            type="text"
-            class="form-control"
-            id="dataPublicacao"
-            disabled
-            :value="livroSelecionado.dataPublicacao"
+                type="date"
+                class="form-control"
+                id="dataPublicacao"
+                v-model="livroSelecionado.dataPublicacao"
             />
+            <label>Data longa: {{ livroSelecionado.dataPublicacao | dataLonga}}</label>
         </div>
         
         <div class="form-group form-check">
@@ -51,15 +51,12 @@
         </div>
 
         <div class="form-group" v-show="mostrarMais">
-            <label for="preco">Preço</label>
-            <input
-            type="text"
-            class="form-control"
-            id="preco"
-            disabled
-            :value="livroSelecionado.preco"
-            />
+          <label for="preco">Preço</label>
+          <input type="number" class="form-control" id="preco" 
+            v-model="livroSelecionado.preco" />
+          <label>{{mensagemPreco}}</label>
         </div>
+
         <div class="form-group" v-show="mostrarMais">
             <label for="autores">Autor(es)</label>
             <input
@@ -74,12 +71,17 @@
     </div>
   </div>
 </template>
+
 <script>
+
+import { format } from 'date-fns';
+const inputDateFormat = 'yyyy-MM-dd';
+
 const nossosLivros = [
     {
         id: 20,
         titulo: "Java Como Programar",
-        dataPublicacao: "2000-03-08",
+        dataPublicacao: format(new Date(2020, 8, 1), inputDateFormat),
         preco: 50,
         numeroPaginas: 300,
         autores: ["Autor 1", "Autor 2"],
@@ -88,7 +90,7 @@ const nossosLivros = [
     {
         id: 21,
         titulo: "Vue.JS Framework",
-        dataPublicacao: "2020-10-08",
+        dataPublicacao: format(new Date(2019, 5, 15), inputDateFormat),
         preco: 150,
         numeroPaginas: 300,
         autores: ["Autor 3", "Autor 4"],
@@ -97,7 +99,7 @@ const nossosLivros = [
     {
         id: 22,
         titulo: "C Como Programar",
-        dataPublicacao: "2018-11-08",
+        dataPublicacao: format(new Date(2018, 11, 8), inputDateFormat),
         preco: 100,
         numeroPaginas: 600,
         autores: ["Autor 1"],        
@@ -111,7 +113,8 @@ export default {
            livros: [],
            livroSelecionado: undefined,
            mostrarMais: false,
-           mensagem: ''
+           mensagem: '',
+           mensagemPreco: '',
         }
     },
     created () {
@@ -128,7 +131,16 @@ export default {
             this.mensagem = 'Obtendo os livros. Por favor aguarde...';
             this.livros = await this.getLivros();
             this.mensagem = '';
-        }   
+        },   
+        processaMudancaPreco(valorAntigo, valorNovo) {
+            if (valorAntigo == undefined) {
+                this.mensagemPreco = "";
+        } else {
+            if (valorAntigo > valorNovo) {
+                this.mensagemPreco = "O preço caiu";
+                } else this.mensagemPreco = "O preço subiu";
+            }
+        },
     },
     computed: {
         tituloDisponibilidade() {
@@ -137,8 +149,30 @@ export default {
                 }`;
         }
     },
+    watch: {
+      "livroSelecionado.preco": {
+      immediate: false,
+      handler(valorNovo, valorAntigo) {
+        console.log(`Watcher avaliado. antigo=${valorAntigo}, novo=${valorNovo}`);
+        this.processaMudancaPreco(valorAntigo, valorNovo);
+      }
+    }
+
+    },
 }
 </script>
 <style scoped>
-
+    li a {
+    cursor: pointer;
+    }
+    .card-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    }
+    .notification {
+    background-color: blue;
+    color: white;
+    font-size: 16px;
+    line-height: 30px;
+    }
 </style>
