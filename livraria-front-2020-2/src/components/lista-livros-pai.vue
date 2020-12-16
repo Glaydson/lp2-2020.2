@@ -24,7 +24,8 @@
           :todosAutores="autores"
           :todasEditoras="editoras"
           @atualizar="atualizarLivro"
-          @cancelar="cancelarEdicao" />
+          @cancelar="cancelarEdicao"
+          @remover="removerLivro" />
     </div>
   </div>
 </template>
@@ -75,6 +76,10 @@ const nossosLivros = [
     disponivel: true
   }
 ];
+// Cria um objeto autor para ser usado no momento de atualizar/salvar um livro
+var Autor = function(autorID) {
+  this.autorID = autorID;
+};
 export default {
   name: "ListaLivrosPai",
   data() {
@@ -127,6 +132,28 @@ export default {
     },
     selecionarLivro(livro) {
       this.livroSelecionado = livro;
+    },
+    async atualizarLivro(livro) {
+      // transforma o array de ids em um array de objetos, cada um com o autorID
+      const autoresLivro = [];
+      livro.autores.forEach(autor => {
+        autoresLivro.push(new Autor(autor));
+      });
+      livro.autores = autoresLivro;
+      const resposta = await dadosLivros.atualizarLivro(livro);
+      console.log(resposta);
+      this.livroSelecionado = undefined;
+      this.mensagemSucesso = `${livro.titulo} Atualizado`;
+      await this.carregarLivros();
+    },
+    async removerLivro(livro) {
+      if (confirm(`Deseja remover ${livro.titulo}?`)) {
+        const resposta = await dadosLivros.removerLivro(livro);
+        console.log(resposta);
+        this.livroSelecionado = undefined;
+        this.mensagemSucesso = `${livro.titulo} Removido`;
+      }
+      await this.carregarLivros();
     },
   },
   
