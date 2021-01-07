@@ -46,6 +46,7 @@ public class LivroController {
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteLivro(@PathVariable("id") Long id) {
+		System.out.println("CONTROLADOR DE LIVROS - REMOÇÃO");
 		servicoLivros.remover(id);
 		return new ResponseEntity<>("Livro foi removido!", HttpStatus.OK);
 	}
