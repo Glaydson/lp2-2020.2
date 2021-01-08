@@ -26,3 +26,4 @@ insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (3, 4);
 insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (4, 5);
 insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (5, 3);
 insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (6, 3);
+insert into tb_livros_autores(autores_autor_id, livros_livro_id) values (6, 7);
