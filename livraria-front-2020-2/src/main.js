@@ -3,6 +3,7 @@ import App from './App.vue'
 import moment from 'moment'
 
 import "@/assets/global.css"
+import router from './router'
 
 Vue.config.productionTip = false
 
@@ -14,7 +15,13 @@ Vue.filter('dataLonga', function(value) {
   }
 })
 
+Vue.filter('upperCase', function(value) {
+  if (value) {
+    return value.toUpperCase();
+  }
+})
 
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
